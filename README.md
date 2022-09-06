@@ -27,7 +27,7 @@ Known issues :
 Unless they have damage, AI won't pit during this race and will be disqualified. The points are adjusted properly when running the "set_race.py" script.
 
 
-===========================================================================================
+===============================================
 
 The database unpacker/repacker was made by xAranaktu :
 https://github.com/xAranaktu/F1-Manager-2022-SaveFile-Repacker
