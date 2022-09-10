@@ -31,6 +31,9 @@ def run_script():
     sprint_result = cursor.execute("SELECT Season, FinishingPos, DriverID, TeamID, Laps, Time, Points FROM Races_Results WHERE RaceID = "+str(last_event[0])).fetchall()
     adjusted_result = sorted(sprint_result, key=lambda x:x[4]*10000-x[5], reverse=True)
     for i in range(20):
+        cursor.execute("UPDATE Races_Results SET FinishingPos = FinishingPos + 20 WHERE RaceID = " + str(last_event[0]) + " AND DriverID = " + str(adjusted_result[i][2]))
+    
+    for i in range(20):
         if adjusted_result[i][1] != i+1:
             point_change = adjusted_result[i][6] - max(0, 8-i)
         else:
