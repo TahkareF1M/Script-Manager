@@ -1,31 +1,42 @@
 # F1M Script Manager
 
-Requirements : 
+**Requirements :**  
 Python 3
 
-Safety : 
-Always make a copy of your save before running a script in case it breaks something
+**Safety :**  
+Always make a copy of your save before running a script in case something goes wrong.
 
-How to install :
-Extract the contents of this archive in your F1 Manager 22 save folder (it should be "C:\Users\<USERNAME>\AppData\Local\F1Manager22\Saved\SaveGames").
+**How to install :**  
+Extract the contents of this archive in your save folder (it should be `C:\Users\<USERNAME>\AppData\Local\F1Manager22\Saved\SaveGames`).
 
-How to use :
-Launch script_manager.py, it allows you to select the script you want to run and the save you want to run it on. A dummy script that should simply display a short text in the console is included.
+**How to use :**  
+1. Launch `script_manager.py` and save your game (the order doesn't matter).  
+2. Choose which script to run, the save you want to run it on and specify an argument for the scripts that require one.
+3. Load your save.
 
-How does the sprint race simulation works :
-1. Save your game before starting the Imola/Austria/Brazil weekends.
-2. Execute the "set_sprint.py" script.
-3. Reload your save.
-4. Play the weekend with the sprint race.
-5. Start the next race weekend that is at the same track.
-6. SAVE BEFORE STARTING FP1.
-7. Execute the "set_race.py" script.
-8. Reload your save.
-9. Play the normal race.
+Feel free to make your own scripts and send them to me if you want them to be included in this repository.
 
-Known issues :
-Unless they have damage, AI won't pit during this race and will be disqualified. The points are adjusted properly when running the "set_race.py" script.
+===============================================
 
+### How to use the scripts
+
+`change_team.py` : specify the name of the new team you want to manage as an argument (ex : Ferrari, McLaren, Alpha Tauri).  
+`edit_drs.py` : specify the drs strength you want as an argument. Accepted values are "default", "reduced" and "disabled".  
+`edit_grip.py` : specifiy the tyre behaviour you want as an argument. Accepted values are "default", "grip-", "durability-" and "both-".  
+`shuffle_calendar.py` : run it before the first race of the season to shuffle the race calendar.  
+`shuffle_engines.py` : run it before starting the new season if you want to know the new values before choosing a new engine or before the first race of the season if you want to be surprised.  
+
+`set_sprint.py` and `set_race.py`:  
+1. Save your game before starting the Imola/Austria/Brazil race weekends.
+2. Run `set_sprint.py`.
+3. Play the weekend with the sprint race.
+4. Start the next race weekend at the same track but DO NOT START FP1 and save your game.
+5. Run `set_race.py`.
+6. Load your save and play the race.
+
+**Known issues :**
+Any driver not using 2 different tyre compounds during the sprint will show up as disqualified.
+The standings are corrected properly when `set_race.py` is ran.
 
 ===============================================
 
