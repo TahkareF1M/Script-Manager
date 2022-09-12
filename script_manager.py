@@ -33,12 +33,13 @@ def run_script():
         process_unpack(save, "scripts/result")
         try:
             script_map[script].run_script(option_entry.get())
+            log.write("[" + str(datetime.now()) + "] Execution - Script : " + script + " - Argument : " + option_entry.get() + " - Savefile : " + save + "\n")
         except:
             script_map[script].run_script()
+            log.write("[" + str(datetime.now()) + "] Execution - Script : " + script + " - Savefile : " + save + "\n")
+        log.flush()
         process_repack("scripts/result", save)
         run_label_var.set("Ran " + script + " on " + save)
-        log.write("[" + str(datetime.now()) + "] Execution - Script : " + script + " - Savefile : " + save + "\n")
-        log.flush()
 
 # Listing all the scripts and saves
 scripts = [element for element in os.listdir("./scripts") if ".py" in element]
