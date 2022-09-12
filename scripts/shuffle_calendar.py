@@ -8,12 +8,14 @@ def run_script():
     track_ids = [i for i in range(1,25) if i != 3 and i != 16]
     random.shuffle(track_ids)
     
-    # Getting infos to create a duplicate weekend
+    # Getting all the current season races
     day_season = cursor.execute("SELECT Day, CurrentSeason FROM Player_State").fetchone()
     season_events = cursor.execute("SELECT RaceID FROM Races WHERE SeasonID = " + str(day_season[1])).fetchall()
     
+    # Inserting the new calendar
     for i in range(len(track_ids)):
         cursor.execute("UPDATE Races SET TrackID = " + str(track_ids[i]) + " WHERE RaceID = " + str(season_events[i][0]))
+    print("Shuffled the calendar")
     
     conn.commit()
     conn.close()

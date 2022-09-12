@@ -17,6 +17,7 @@ def run_script():
     cursor.execute("UPDATE Races_Tracks SET Laps = 21 WHERE TrackID = 24")
     cursor.execute("UPDATE Races_Tracks SET Laps = 24 WHERE TrackID = 9")
     cursor.execute("UPDATE Races_Tracks SET Laps = 24 WHERE TrackID = 20")
+    print("Sprint race has been set up")
     
     # Updating point system
     cursor.execute("UPDATE Regulations_NonTechnical_PointSchemes SET Points = 8 WHERE PointScheme = 3 AND RacePos = 1")
@@ -29,6 +30,7 @@ def run_script():
     cursor.execute("UPDATE Regulations_NonTechnical_PointSchemes SET Points = 1 WHERE PointScheme = 3 AND RacePos = 8")
     cursor.execute("UPDATE Regulations_Enum_Changes SET CurrentValue = 3 WHERE Name = 'PointScheme'")
     cursor.execute("UPDATE Regulations_Enum_Changes SET CurrentValue = 0 WHERE Name = 'FastestLapBonusPoint'")
+    print("Point scheme has been set up")
     
     conn.commit()
     conn.close()

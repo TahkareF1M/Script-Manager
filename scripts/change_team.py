@@ -1,6 +1,6 @@
 import sqlite3
 
-def run_script(option):
+def run_script(option=""):
     conn = sqlite3.connect("scripts/result/main.db")
     cursor = conn.cursor()
     
@@ -19,6 +19,7 @@ def run_script(option):
     
     if new_team > 0:
         cursor.execute("UPDATE Player SET TeamID = " + str(new_team))
+        print("Successfully changed player team")
     else:
         print(option, "was not recognized as a team")
     
@@ -29,4 +30,4 @@ def get_description():
     return "Choose a new team to manage by typing its name as an argument.\nAuthor: Tahkare"
 
 if __name__ == '__main__':
-    run_script("")
+    run_script()

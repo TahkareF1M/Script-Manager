@@ -20,10 +20,12 @@ def run_script():
     cursor.execute("UPDATE Races_Tracks SET Laps = 63 WHERE TrackID = 24")
     cursor.execute("UPDATE Races_Tracks SET Laps = 71 WHERE TrackID = 9")
     cursor.execute("UPDATE Races_Tracks SET Laps = 71 WHERE TrackID = 20")
+    print("Main race has been set up")
     
     # Restoring the point scheme
     cursor.execute("UPDATE Regulations_Enum_Changes SET CurrentValue = 1 WHERE Name = 'PointScheme'")
     cursor.execute("UPDATE Regulations_Enum_Changes SET CurrentValue = 1 WHERE Name = 'FastestLapBonusPoint'")
+    print("Point scheme has been set up")
     
     conn.commit()
     
@@ -49,6 +51,7 @@ def run_script():
         cursor.execute("UPDATE Races_TeamStandings SET LastPositionChange = 0 WHERE SeasonID = " + str(adjusted_result[i][0]) + " AND TeamID = " + str(adjusted_result[i][3]))
         
         conn.commit()
+    print("Sprint race results have been validated")
         
     
     # Setting up the grid properly
@@ -63,6 +66,7 @@ def run_script():
             cursor.execute("INSERT INTO Races_QualifyingResults VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", (element[0], next_event[0], 2, element[1], element[2], element[3], element[5], 0, lap_count))
         if element[1] <= 10:
             cursor.execute("INSERT INTO Races_QualifyingResults VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", (element[0], next_event[0], 3, element[1], element[2], element[3], element[5], 0, lap_count))
+    print("Starting grid has been set up")
     
     conn.commit()
     conn.close()
