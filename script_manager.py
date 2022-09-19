@@ -4,6 +4,9 @@ import os
 from datetime import datetime
 from scripts.extractor import process_unpack, process_repack
 
+#store location of f1manager saves as variable
+save_location = os.getenv("LOCALAPPDATA")+"\\F1Manager22\\Saved\\SaveGames"
+
 def script_select(event):
     if len(script_listbox.curselection()) > 0:
         script = scripts[script_listbox.curselection()[0]]
@@ -27,6 +30,7 @@ def save_select(event):
         run_label_var.set("")
 
 def run_script():
+    os.chdir(save_location)
     script = chosen_script_entry.get()
     save = chosen_save_entry.get()
     if len(script) > 0 and len(save) > 0:
@@ -41,13 +45,17 @@ def run_script():
         process_repack("scripts/result", save)
         run_label_var.set("Ran " + script + " on " + save)
 
+# Make copy of scripts in F1Manager save location
+os.system('xcopy /e /i /y scripts '+'"'+save_location+'\\scripts"')
+os.system('xcopy /e /i /y images '+'"'+save_location+'\\images"')
+
 # Listing all the scripts and saves
-scripts = [element for element in os.listdir("./scripts") if ".py" in element]
+scripts = [element for element in os.listdir(save_location+"\\scripts") if ".py" in element]
 if "extractor.py" in scripts:
     scripts.remove("extractor.py")
 if "script_manager.py" in scripts:
     scripts.remove("script_manager.py")
-saves = [element for element in os.listdir(".") if ".sav" in element]
+saves = [element for element in os.listdir(save_location) if ".sav" in element]
 if "player.sav" in saves:
     saves.remove("player.sav")
     
@@ -59,6 +67,8 @@ log = open("scripts/log.txt", 'a', encoding='utf-8')
 
 window = tk.Tk()
 window.title("F1 Manager 22 Script Manager")
+img=tk.PhotoImage(file="./images/script_manager/F1ManagerLogo.png")
+window.iconphoto(False, img)
 window.columnconfigure(0)
 window.columnconfigure(1)
 window.columnconfigure(2, weight=5)
