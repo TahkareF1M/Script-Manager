@@ -6,8 +6,8 @@ Python 3
 **Safety :**  
 Always make a copy of your save before running a script in case something goes wrong.
 
-**How to install :**  
-Extract the contents of this archive in your save folder (it should be `C:\Users\<USERNAME>\AppData\Local\F1Manager22\Saved\SaveGames`).
+**Setup :**  
+If you have changed your save file location, change `save_location` in `script_manager.py` to `save_location="<FilePath>"` and add change all `\` to `\\`
 
 **How to use :**  
 1. Launch `script_manager.py` and save your game (the order doesn't matter).  

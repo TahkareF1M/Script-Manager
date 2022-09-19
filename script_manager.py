@@ -47,6 +47,7 @@ def run_script():
 
 # Make copy of scripts in F1Manager save location
 os.system('xcopy /e /i /y scripts '+'"'+save_location+'\\scripts"')
+os.system('xcopy /e /i /y images '+'"'+save_location+'\\images"')
 
 # Listing all the scripts and saves
 scripts = [element for element in os.listdir(save_location+"\\scripts") if ".py" in element]
