@@ -1,28 +1,30 @@
 import sqlite3
 
-def run_script(option=""):
+def run_script(option="default"):
+    option = option.lower()
+    settings = {
+        "MinDRSTopSpeedMultiplier": "1.005",
+        "MaxDRSTopSpeedMultiplier": "1.044",
+        "MinDRSAccelerationMultiplier": "1.05",
+        "MaxDRSAccelerationMultiplier": "1.65",
+    }
+    message = "Default DRS values set"
+
     conn = sqlite3.connect("scripts/result/main.db")
     cursor = conn.cursor()
     
-    option = option.lower()
-    if option == "default":
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MinDRSTopSpeedMultiplier = 1.005")
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MaxDRSTopSpeedMultiplier = 1.044")
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MinDRSAccelerationMultiplier = 1.05")
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MaxDRSAccelerationMultiplier = 1.65")
-        print("Default DRS values set")
-    elif option == "reduced":
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MinDRSTopSpeedMultiplier = 1.005")
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MaxDRSTopSpeedMultiplier = 1.044")
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MinDRSAccelerationMultiplier = 1.05")
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MaxDRSAccelerationMultiplier = 1.35")
-        print("Reduced DRS values set")
+    if option == "reduced":
+        settings["MaxDRSAccelerationMultiplier"] = "1.35" 
+        message = "Reduced DRS values set"
+
     elif option == "disabled":
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MinDRSTopSpeedMultiplier = 1")
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MaxDRSTopSpeedMultiplier = 1")
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MinDRSAccelerationMultiplier = 1")
-        cursor.execute("UPDATE Parts_RaceSimConstants SET MaxDRSAccelerationMultiplier = 1")
-        print("Disabled DRS")
+        for property in settings:
+            settings[property] = "1"
+        message = "Disabled DRS"
+    
+    for property, value in settings.items():
+        cursor.execute(f"UPDATE Parts_RaceSimConstants SET {property} = {value}")
+    print(message)
     
     conn.commit()
     conn.close()
@@ -30,5 +32,5 @@ def run_script(option=""):
 def get_description():
     return "Choose the DRS behaviour you want. Available options are: default, reduced, disabled.\nAuthor: Tahkare"
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run_script()
